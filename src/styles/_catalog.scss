@@ -1,29 +1,17 @@
 .catalog {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 48px;
+  @extend %grid;
+  grid-template-columns: $cardWidth;
+  gap: $gap;
 
-  max-width: 944px;
-  margin: 0 auto;
-  padding: 0 20px;
-
-  @media (min-width: 488px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
+  @each $minWidth, $cols in $screenWidth {
+    @media (min-width: $minWidth) {
+      grid-template-columns: repeat($cols, $cardWidth);
+    }
   }
 
   &__card {
-    display: flex;
-    justify-content: center;
+    @extend %grid;
     align-items: center;
-    width: $cardWidth;
     height: 300px;
     border: 1px solid #ccc;
     border-radius: 5px;
